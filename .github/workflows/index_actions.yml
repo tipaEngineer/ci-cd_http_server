@@ -22,16 +22,9 @@ jobs:
           username: ${{secrets.DOCKER_HUB_USERNAME}}
           password: ${{secrets.DOCKER_HUB_PASSWORD}}
       -
-        name: Get smart tag
-        id: prepare
-        uses: Surgo/docker-smart-tag-action@v1
-        with:
-          docker_image: tipaproger/ci-cd_httpd_github_actions
-      -
         name: Build and push image
         uses: docker/build-push-action@v4
         with:
-          context: .
+          repository: tipaproger/ci-cd_httpd_github_actions
           push: true
-          tags: ${{ steps.prepare.outputs.tag }}
-      
+          tags: latest, ${{ github.run_number }}
