@@ -11,9 +11,9 @@ jobs:
     steps:
       -
         name: Chekout
-        uses: actions/chekout@v3
+        uses: actions/checkout@v3
       -
-        name: Set up Docker Bildx
+        name: Set up Docker Bildx 
         uses: docker/setup-buildx-action@v2
       -
         name: Login to Docker Hub
