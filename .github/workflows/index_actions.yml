@@ -25,7 +25,5 @@ jobs:
         name: Build and push image
         uses: docker/build-push-action@v4
         with:
-          username: ${{secrets.DOCKER_HUB_USERNAME}}
-          password: ${{secrets.DOCKER_HUB_PASSWORD}}
           repository: tipaproger/ci-cd_httpd_github_actions
-          tags: latest, ${{ github.run_number }}
+          tags: latest
