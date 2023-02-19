@@ -27,6 +27,15 @@ jobs:
         uses: docker/metadata-action@v4
         with:
           images: tipaproger/ci-cd_httpd_github_actions
+          tags: |
+            type=ref,event=branch
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+          flavor: |
+            latest=true
+
+
+
       -
         name: Build and push image
         uses: docker/build-push-action@v4
