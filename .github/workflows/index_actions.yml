@@ -22,8 +22,16 @@ jobs:
           username: ${{secrets.DOCKER_HUB_USERNAME}}
           password: ${{secrets.DOCKER_HUB_PASSWORD}}
       -
+        name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v4
+        with:
+          images: tipaproger/ci-cd_httpd_github_actions
+      -
         name: Build and push image
         uses: docker/build-push-action@v4
         with:
+          context: .
           push: true
-          tags: tipaproger/ci-cd_httpd_github_actions
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
