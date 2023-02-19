@@ -22,25 +22,16 @@ jobs:
           username: ${{secrets.DOCKER_HUB_USERNAME}}
           password: ${{secrets.DOCKER_HUB_PASSWORD}}
       -
-        name: Docker meta
-        id: meta
-        uses: docker/metadata-action@v4
+        name: Get smart tag
+        id: prepare
+        uses: Surgo/docker-smart-tag-action@v1
         with:
-          images: tipaproger/ci-cd_httpd_github_actions
-          tags: |
-            type=ref,event=branch
-            type=semver,pattern={{version}}
-            type=semver,pattern={{major}}.{{minor}}
-          flavor: |
-            latest=true
-
-
-
+          docker_image: tipaproger/ci-cd_httpd_github_actions
       -
         name: Build and push image
         uses: docker/build-push-action@v4
         with:
           context: .
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
+          tags: ${{ steps.prepare.outputs.tag }}
+      
